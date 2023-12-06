@@ -57,6 +57,30 @@ build CMakeFiles/hex.dir/main.cpp.obj: CXX_COMPILER__hex_unscanned_Debug C$:/Use
   OBJECT_DIR = CMakeFiles\hex.dir
   OBJECT_FILE_DIR = CMakeFiles\hex.dir
 
+build CMakeFiles/hex.dir/Table.cpp.obj: CXX_COMPILER__hex_unscanned_Debug C$:/Users/Calin/Desktop/hex/Table.cpp || cmake_object_order_depends_target_hex
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\hex.dir\Table.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -isystem C:/SFML/SFML-2.6.1/include
+  OBJECT_DIR = CMakeFiles\hex.dir
+  OBJECT_FILE_DIR = CMakeFiles\hex.dir
+
+build CMakeFiles/hex.dir/Block.cpp.obj: CXX_COMPILER__hex_unscanned_Debug C$:/Users/Calin/Desktop/hex/Block.cpp || cmake_object_order_depends_target_hex
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\hex.dir\Block.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -isystem C:/SFML/SFML-2.6.1/include
+  OBJECT_DIR = CMakeFiles\hex.dir
+  OBJECT_FILE_DIR = CMakeFiles\hex.dir
+
+build CMakeFiles/hex.dir/Selector.cpp.obj: CXX_COMPILER__hex_unscanned_Debug C$:/Users/Calin/Desktop/hex/Selector.cpp || cmake_object_order_depends_target_hex
+  DEFINES = -DSFML_STATIC
+  DEP_FILE = CMakeFiles\hex.dir\Selector.cpp.obj.d
+  FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
+  INCLUDES = -isystem C:/SFML/SFML-2.6.1/include
+  OBJECT_DIR = CMakeFiles\hex.dir
+  OBJECT_FILE_DIR = CMakeFiles\hex.dir
+
 
 # =============================================================================
 # Link build statements for EXECUTABLE target hex
@@ -65,7 +89,7 @@ build CMakeFiles/hex.dir/main.cpp.obj: CXX_COMPILER__hex_unscanned_Debug C$:/Use
 #############################################
 # Link the executable hex.exe
 
-build hex.exe: CXX_EXECUTABLE_LINKER__hex_Debug CMakeFiles/hex.dir/main.cpp.obj | C$:/SFML/SFML-2.6.1/lib/libsfml-system-s-d.a C$:/SFML/SFML-2.6.1/lib/libsfml-window-s-d.a C$:/SFML/SFML-2.6.1/lib/libsfml-graphics-s-d.a C$:/SFML/SFML-2.6.1/lib/libsfml-audio-s-d.a C$:/SFML/SFML-2.6.1/lib/libsfml-window-s-d.a C$:/SFML/SFML-2.6.1/lib/libfreetype.a C$:/SFML/SFML-2.6.1/lib/libsfml-system-s-d.a C$:/SFML/SFML-2.6.1/lib/libopenal32.a C$:/SFML/SFML-2.6.1/lib/libvorbisfile.a C$:/SFML/SFML-2.6.1/lib/libvorbisenc.a C$:/SFML/SFML-2.6.1/lib/libvorbis.a C$:/SFML/SFML-2.6.1/lib/libogg.a C$:/SFML/SFML-2.6.1/lib/libFLAC.a
+build hex.exe: CXX_EXECUTABLE_LINKER__hex_Debug CMakeFiles/hex.dir/main.cpp.obj CMakeFiles/hex.dir/Table.cpp.obj CMakeFiles/hex.dir/Block.cpp.obj CMakeFiles/hex.dir/Selector.cpp.obj | C$:/SFML/SFML-2.6.1/lib/libsfml-system-s-d.a C$:/SFML/SFML-2.6.1/lib/libsfml-window-s-d.a C$:/SFML/SFML-2.6.1/lib/libsfml-graphics-s-d.a C$:/SFML/SFML-2.6.1/lib/libsfml-audio-s-d.a C$:/SFML/SFML-2.6.1/lib/libsfml-window-s-d.a C$:/SFML/SFML-2.6.1/lib/libfreetype.a C$:/SFML/SFML-2.6.1/lib/libsfml-system-s-d.a C$:/SFML/SFML-2.6.1/lib/libopenal32.a C$:/SFML/SFML-2.6.1/lib/libvorbisfile.a C$:/SFML/SFML-2.6.1/lib/libvorbisenc.a C$:/SFML/SFML-2.6.1/lib/libvorbis.a C$:/SFML/SFML-2.6.1/lib/libogg.a C$:/SFML/SFML-2.6.1/lib/libFLAC.a
   FLAGS = -g
   LINK_LIBRARIES = C:/SFML/SFML-2.6.1/lib/libsfml-system-s-d.a  C:/SFML/SFML-2.6.1/lib/libsfml-window-s-d.a  C:/SFML/SFML-2.6.1/lib/libsfml-graphics-s-d.a  C:/SFML/SFML-2.6.1/lib/libsfml-audio-s-d.a  C:/SFML/SFML-2.6.1/lib/libsfml-window-s-d.a  -lOpenGL32  -lgdi32  C:/SFML/SFML-2.6.1/lib/libfreetype.a  C:/SFML/SFML-2.6.1/lib/libsfml-system-s-d.a  -lwinmm  C:/SFML/SFML-2.6.1/lib/libopenal32.a  C:/SFML/SFML-2.6.1/lib/libvorbisfile.a  C:/SFML/SFML-2.6.1/lib/libvorbisenc.a  C:/SFML/SFML-2.6.1/lib/libvorbis.a  C:/SFML/SFML-2.6.1/lib/libogg.a  C:/SFML/SFML-2.6.1/lib/libFLAC.a  -lkernel32 -luser32 -lgdi32 -lwinspool -lshell32 -lole32 -loleaut32 -luuid -lcomdlg32 -ladvapi32
   OBJECT_DIR = CMakeFiles\hex.dir

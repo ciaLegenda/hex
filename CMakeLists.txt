@@ -3,7 +3,13 @@ project(hex)
 
 set(CMAKE_CXX_STANDARD 20)
 
-add_executable(hex main.cpp)
+add_executable(hex main.cpp
+        Table.cpp
+        Table.h
+        Block.cpp
+        Block.h
+        Selector.cpp
+        Selector.h)
 
 set(SFML_STATIC_LIBRARIES TRUE)
 set(SFML_DIR "C:/SFML/SFML-2.6.1/lib/cmake/SFML")
