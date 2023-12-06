@@ -17,15 +17,15 @@
 using namespace sf;
 
 class Table{
-    static Vector2<int> centers_xy_coord[TABLE_WIDTH+1][TABLE_WIDTH+1];
+    Vector2<int> centers_xy_coord[TABLE_WIDTH+1][TABLE_WIDTH+1];
 public:
     int contents[TABLE_WIDTH+2][TABLE_WIDTH+2];
     Table(){
         for(int i=1;i<=TABLE_WIDTH;i++)
             for(int j=1;j<=TABLE_WIDTH;j++) {
                 contents[i][j] = EMPTY;
-               // centers_xy_coord[i][j].x = XORIGIN + 2 * (i + j) * RADIUS * COS60 + RADIUS * COS60;
-               // centers_xy_coord[i][j].y = YORIGIN - 2 * (i - j) * RADIUS * SIN60 + 3 * RADIUS / 2;
+                centers_xy_coord[i][j].x = XORIGIN + 2 * (i + j) * RADIUS * COS60 + RADIUS * COS60;
+                centers_xy_coord[i][j].y = YORIGIN - 2 * (i - j) * RADIUS * SIN60 + 3 * RADIUS / 2;
 
             }
         for(int i=0;i<=TABLE_WIDTH;i++)
@@ -47,8 +47,7 @@ public:
         xy_coord.y = YORIGIN - 2 * (i - j) * RADIUS * SIN60;
         return xy_coord;
     }
-    static Vector2<int> transform_to_table_coord(Vector2<int> window_coord){
-        /*
+    Vector2<int> transform_to_table_coord(Vector2<int> window_coord){
         double dist_to_centers[TABLE_WIDTH+1][TABLE_WIDTH+1];
         for(int i=1;i<=TABLE_WIDTH;i++)
             for(int j=1;j<=TABLE_WIDTH;j++)
@@ -64,8 +63,6 @@ public:
                     click_coord={i,j};
                 }
         return click_coord;
-         */
-        return{1,1};
     };
     static void draw(sf::RenderWindow *window){
         sf::CircleShape hex(RADIUS, 6);
@@ -201,7 +198,7 @@ int main(){
             //mouse interaction
             if(event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left){
                 click_coord = Mouse::getPosition(window);
-                Vector2 coord = Table::transform_to_table_coord(click_coord);
+                Vector2 coord = table.transform_to_table_coord(click_coord);
                 if(state == no_block_slected){
                     //checking if we clicked on a block
                     if(table.get_content(coord) > 0) {
