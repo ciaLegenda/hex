@@ -1,5 +1,7 @@
 #include <iostream>
 #include <cmath>
+#include <fstream>
+#include <vector>
 #include "SFML\Graphics.hpp"
 
 #define HEIGHT 800
@@ -112,13 +114,13 @@ public:
 
     }
     void draw(sf::RenderWindow *window){
-        sf::CircleShape hex(RADIUS,6);
+        CircleShape hex(RADIUS,6);
         hex.setOutlineColor(sf::Color::White);
         if(is_selected)
             hex.setOutlineThickness(5);
         else
             hex.setOutlineThickness(0);
-        hex.setFillColor(sf::Color::Cyan);
+        hex.setFillColor(color);
         for(int k=0;k<length;k++){
             hex.setPosition(Table::get_xy_coord(this->coord + k*this->moveVector));
             window->draw(hex);
@@ -169,12 +171,35 @@ public:
 
 enum game_state{no_block_slected,block_selected,game_complete};
 
+
+class Game{
+    Table table;
+    int no_of_blocks;
+    std::vector<Block> b;
+    int state = no_block_slected;
+    int id_of_selected_block;
+    Selector forward_move = Selector();
+    Selector backward_move = Selector();
+    Vector2<int> click_coord;
+public:
+    Game(std::ifstream fin){
+        fin>>no_of_blocks;
+        b.reserve(no_of_blocks);
+        //int id,Vector2<int> coord,Color color,int length,int orientation,Table *table;
+        int i,j,colorR,colorG,colorB,length,orientation;
+        for(int k=0;i<no_of_blocks;i++){
+            fin>>i>>j>>colorR>>colorG>>colorB>>length>>orientation;
+            b.push_back(Block(k,{i,j},Color(colorR,colorG,colorB),length,orientation,&table));
+        }
+    };
+};
+
 int main(){
     // create the window
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "My window");
     Table table = Table();
-    Block b[100];
-    int no_of_blocks=3;
+    std::vector<Block> b;
+    int no_of_blocks;
 
     int state = no_block_slected;
     int id_of_selected_block;
@@ -182,9 +207,16 @@ int main(){
     Selector backward_move = Selector();
     Vector2<int> click_coord;
 
-    b[1] = Block(1,{1,2},Color::Cyan,2,Horizontal,&table);
-    b[2] = Block(2,{2,4},Color::Cyan,3,Lower_diagonal,&table);
-    b[3] = Block(3,{5,2},Color::Yellow,4,Upper_diagonal,&table);
+    std::ifstream fin("level.in");
+    fin>>no_of_blocks;
+    b.reserve(no_of_blocks);
+    //int id,Vector2<int> coord,Color color,int length,int orientation,Table *table;
+    int i,j,colorR,colorG,colorB,length,orientation;
+    b.emplace_back();
+    for(int k=0;k<no_of_blocks;k++){
+        fin>>i>>j>>colorR>>colorG>>colorB>>length>>orientation;
+        b.push_back(Block(k+1,{i,j},Color(colorR,colorG,colorB),length,orientation,&table));
+    }
     // run the program as long as the window is open
     while (window.isOpen())
     {
@@ -235,9 +267,8 @@ int main(){
         window.clear(sf::Color::Black);
 
         Table::draw(&window);
-        b[1].draw(&window);
-        b[2].draw(&window);
-        b[3].draw(&window);
+        for(auto itr: b)
+            itr.draw(&window);
         forward_move.draw(&window);
         backward_move.draw(&window);
         // end the current frame
