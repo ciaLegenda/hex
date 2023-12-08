@@ -15,7 +15,7 @@ Table::Table() {
 }
 
 int Table::get_content(sf::Vector2<int> coord) {
-    if(coord.y<0 ||coord.y>TABLE_WIDTH || coord.x<0 ||coord.x>TABLE_WIDTH)
+    if(coord.y<1 ||coord.y>TABLE_WIDTH || coord.x<1 ||coord.x>TABLE_WIDTH)
         return WALL;
     return contents[coord.x][coord.y];
 }

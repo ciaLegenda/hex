@@ -15,7 +15,7 @@ namespace sf {
         bool enabled;
         Selector();
         void set_position(Vector2<int> table_coord);
-        void draw(sf::RenderWindow *window)
+        void draw(sf::RenderWindow *window);
         bool is_at(Vector2<int> pos){
             return pos == coord;
         }

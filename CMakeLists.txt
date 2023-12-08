@@ -9,7 +9,10 @@ add_executable(hex main.cpp
         Block.cpp
         Block.h
         Selector.cpp
-        Selector.h)
+        Selector.h
+        Game.cpp
+        Game.h
+        "Window size.h")
 
 set(SFML_STATIC_LIBRARIES TRUE)
 set(SFML_DIR "C:/SFML/SFML-2.6.1/lib/cmake/SFML")

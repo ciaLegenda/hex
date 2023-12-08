@@ -2,10 +2,9 @@
 #define HEX_TABLE_H
 
 #include "SFML\Graphics.hpp"
+#include "Window size.h"
 #include <cmath>
 
-#define HEIGHT 800
-#define WIDTH 800
 #define RADIUS 25
 #define TABLE_WIDTH 8
 #define XORIGIN (-RADIUS)
@@ -13,8 +12,8 @@
 #define SIN60 0.86602
 #define COS60 0.5
 
-#define EMPTY 0
-#define WALL (-1)
+#define EMPTY (-1)
+#define WALL (-2)
 
 using namespace sf;
 
