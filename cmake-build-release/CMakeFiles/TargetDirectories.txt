@@ -1,0 +1,3 @@
+C:/Users/Calin/Desktop/hex/cmake-build-release/CMakeFiles/hex.dir
+C:/Users/Calin/Desktop/hex/cmake-build-release/CMakeFiles/edit_cache.dir
+C:/Users/Calin/Desktop/hex/cmake-build-release/CMakeFiles/rebuild_cache.dir

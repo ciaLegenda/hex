@@ -7,6 +7,7 @@ int main(){
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "My window");
     window.setFramerateLimit(30);
     Game game("level.in");
+    Vector2<int> x = {-1,1};
     // run the program as long as the window is open
     while (window.isOpen())
     {
@@ -18,10 +19,10 @@ int main(){
             if (event.type == sf::Event::Closed)
                 window.close();
             //mouse interaction
-            if(event.type == Event::MouseButtonReleased && event.mouseButton.button == Mouse::Left){
-                Vector2<int>click_coord = Mouse::getPosition(window);
-                game.click_update(click_coord);
-            }
+
+            Vector2<int> mouse_coord = Mouse::getPosition(window);
+            bool is_pressed = Mouse::isButtonPressed(Mouse::Left);
+            game.mouse_update(mouse_coord,is_pressed);
 
         }
 

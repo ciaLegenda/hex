@@ -6,7 +6,7 @@
 #include "Selector.h"
 #include <fstream>
 
-#define MAX_ITERATIONS 200
+#define MAX_ITERATIONS 10
 
 namespace sf{
     enum game_state{no_block_slected,block_selected,game_complete};
@@ -17,6 +17,9 @@ namespace sf{
         std::vector<Block> b;
         int state = no_block_slected;
         int id_of_selected_block;
+        Vector2<int> coord;
+        Vector2<int> mouse_coord;
+        bool is_mouse_pressed;
         Selector forward_move = Selector();
         Selector backward_move = Selector();
         Font win_font;
@@ -26,11 +29,13 @@ namespace sf{
         Game(char* level_file);
         void restart();
         void generate_random_level();
-        void click_update(Vector2<int> click_coord);
+        void mouse_update(Vector2<int> mouse_coord,bool is_pressed);
         bool is_complete();
         void draw(RenderWindow *window);
         void show_win_message(RenderWindow *window);
         void show_instructions(RenderWindow *window);
+
+        void debug(sf::RenderWindow *window);
     };
 
 }
