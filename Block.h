@@ -5,7 +5,7 @@
 #include "Table.h"
 using namespace sf;
 
-enum orientation { Lower_diagonal, Horizontal , Upper_diagonal};
+enum orientation {Upper_diagonal,  Horizontal, Lower_diagonal};
 
 class Block{
 public:
@@ -20,6 +20,7 @@ public:
     Block(){};
     Block(int id,Vector2<int> coord,Color color,int length,int orientation,Table *table);
     bool has_legal_placement(){return legal_placement;};
+    //static bool intersects_middle_row();
     void draw(sf::RenderWindow *window);
     bool is_leagal_move(int direction,Table table);
     void move(int direction,Table *table);

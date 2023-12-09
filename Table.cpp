@@ -1,5 +1,6 @@
 #include "Table.h"
-
+#include <queue>
+#include <random>
 using namespace sf;
 
 Table::Table() {
@@ -62,4 +63,25 @@ void Table::draw(sf::RenderWindow *window){
             window->draw(hex);
         }
     }
+}
+
+
+Vector2<int> Table::get_rand_free_cell() {
+    //choose a random position
+    Vector2<int> cell = {rand() % TABLE_WIDTH + 1, rand() % TABLE_WIDTH + 1};
+    int visited[TABLE_WIDTH + 1][TABLE_WIDTH + 1] = {0};
+    std::queue<Vector2<int>> to_visit;
+    to_visit.push(cell);
+    while(! to_visit.empty()){
+        if(get_content(to_visit.front()) == EMPTY)
+            return to_visit.front();
+        for(auto move : moves) {
+            cell = to_visit.front();
+            if (get_content(cell + move) != WALL)
+                if (!visited[(cell + move).x][(cell + move).y])
+                    to_visit.push(cell + move);
+        }
+        to_visit.pop();
+    }
+    return{0,0};
 }

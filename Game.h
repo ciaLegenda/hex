@@ -6,11 +6,12 @@
 #include "Selector.h"
 #include <fstream>
 
-#define MAX_ITERATIONS 100
+#define MAX_ITERATIONS 200
 
 namespace sf{
     enum game_state{no_block_slected,block_selected,game_complete};
     class Game{
+    public:
         Table table;
         int no_of_blocks;
         std::vector<Block> b;
@@ -21,7 +22,7 @@ namespace sf{
         Font win_font;
         Font instruction_font;
         char* level_file;
-    public:
+
         Game(char* level_file);
         void restart();
         void generate_random_level();

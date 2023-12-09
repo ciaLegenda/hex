@@ -1,5 +1,6 @@
 #include "Game.h"
 #include "Table.h"
+#include <iostream>
 
 int main(){
     // create the window

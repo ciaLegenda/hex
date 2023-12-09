@@ -7,7 +7,7 @@ Game::Game(char* level_file){
     this->level_file = level_file;
     win_font.loadFromFile("boston_traffic.ttf");
     instruction_font.loadFromFile("SF_Cartoonist_Hand.ttf");
-    //restart();
+   // restart();
     generate_random_level();
 };
 
@@ -130,31 +130,49 @@ void Game::generate_random_level(){
     //place red block
     int pos = rand_between(1,3);
     b.push_back(Block(0,{pos ,pos},Color(200,10,10), 3,Horizontal,&table));
-    //place a few blocks such that they block the red block
-    //for(int i=3)
-    //place the other blocks such that they don't intersect the path of the red block
-    int placing_tentatives=0;
-    for(int i=0;i<20 && placing_tentatives<MAX_ITERATIONS;i++){
-        placing_tentatives=0;
-        Block aux;
-        do {
-            placing_tentatives++;
-            Vector2<int> coord = {rand_between(1, TABLE_WIDTH-1), rand_between(1, 8)};
-            Color color = Color(rand_between(50,150), rand_between(50,250), rand_between(50,200));
-            int length = rand_between(2,5);
-            int orientation;
-            if(coord.x - coord.y == 1 || coord.y - coord.x == 1)
-                orientation = rand_between(0,1)? Upper_diagonal:Lower_diagonal;
-            else
-                orientation = rand_between(0,2);
-            aux = Block(no_of_blocks,coord,color,length, orientation,&table);
 
-        }while(!aux.has_legal_placement() && placing_tentatives<MAX_ITERATIONS);
-        b.push_back(aux);
+
+    //place the other blocks such that they don't intersect the path of the red block
+    for(int i=1;i<=15;i++){
+        Vector2<int> cell;
+        bool intesects_middle_row=true;
+        int max_block_length, good_dir,length;
+        int iter=0;
+        while(intesects_middle_row && iter<MAX_ITERATIONS){
+            //find an empty cell and see in which direction is best to place the new block
+            max_block_length = 0;
+            while (max_block_length < 2 && iter<MAX_ITERATIONS){
+                iter++;
+                cell = table.get_rand_free_cell();
+                max_block_length = 0;
+                intesects_middle_row = false;
+                for (int dir = 0; dir < 3; dir++){
+                    //don't place horizontal blocks near the middle row
+                    if(dir == 1 &&(cell.x-cell.y < 2 || cell.x-cell.y > -3))
+                        continue;
+                    Vector2<int> move = table.moves[dir];
+                    int k = 1;
+                    while (table.get_content(cell + k * move) == EMPTY)
+                        k++;
+                    if (max_block_length < k) {
+                        max_block_length = k;
+                        good_dir = dir;
+                    }
+                }
+            }
+            length = rand_between(2,max_block_length);
+            for(int k=0;k<length;k++)
+                if((cell + k*table.moves[good_dir]).x == (cell + k*table.moves[good_dir]).y)
+                    intesects_middle_row = true;
+        }
+        if(iter>MAX_ITERATIONS)
+            break;
         no_of_blocks++;
+        b.push_back(Block(i,cell,Color(50+rand()%150,50+rand()%150,50+rand()%150),length,good_dir,&table));
     }
+
     //shuflle the blocks around until the red block is blocked
-    /*
+
     for(int i=0;i<MAX_ITERATIONS;i++){
         int index = rand_between(1,no_of_blocks);
         int dir = rand_between(0,1)? -1 : 1;
@@ -164,5 +182,5 @@ void Game::generate_random_level(){
             steps--;
         }
     }
-     */
+
 };

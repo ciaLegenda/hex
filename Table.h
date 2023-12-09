@@ -19,16 +19,16 @@ using namespace sf;
 
 class Table{
     Vector2<int> centers_xy_coord[TABLE_WIDTH+1][TABLE_WIDTH+1];
-public:
     int contents[TABLE_WIDTH+2][TABLE_WIDTH+2]{};
-
+public:
+    Vector2<int> moves[6]={{1,0},{1,1},{0,1},{-1,0},{0,-1},{-1,-1}};
     Table();
     int get_content(sf::Vector2<int> coord);
     void set_content(sf::Vector2<int> coord,int value);
     static sf::Vector2<float> get_xy_coord(sf::Vector2<int> table_coord);
     Vector2<int> transform_to_table_coord(Vector2<int> window_coord);
     static void draw(sf::RenderWindow *window);
-
+    Vector2<int> get_rand_free_cell();
 };
 
 #endif //HEX_TABLE_H

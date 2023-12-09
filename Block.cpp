@@ -10,22 +10,10 @@ Block::Block(int id,Vector2<int> coord,Color color,int length,int orientation,Ta
     this->coord = coord;
     this->length = length;
     is_selected = false;
-    switch (orientation) {
-        case Upper_diagonal:
-            this->moveVector = {0,1};
-            break;
-        case Horizontal:
-            this->moveVector = {1,1};
-            break;
-        default:
-            this->moveVector = {1,0};
-
-    }
+    moveVector = table->moves[orientation];
     legal_placement = true;
     for(int k=0;legal_placement && k<length;k++){
         if(table->get_content(this->coord + k*this->moveVector) != EMPTY)
-            legal_placement = false;
-        if(id != 0 && (coord + k*moveVector).x == (coord + k*moveVector).y)
             legal_placement = false;
     }
     if(legal_placement)
@@ -47,7 +35,14 @@ void Block::draw(sf::RenderWindow *window) {
         window->draw(hex);
     }
 }
-
+/*
+bool Block::intersects_middle_row() {
+    for(int k=0;k<length;k++)
+        if((coord + k*moveVector).x == (coord + k*moveVector).y)
+            return false;
+    return true;
+}
+*/
 bool Block::is_leagal_move(int direction,Table table){
     sf::Vector2<int> cell_to_check =  coord;
     if(direction>0)
