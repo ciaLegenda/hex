@@ -4,19 +4,22 @@
 using namespace sf;
 
 Table::Table() {
-    for (int i = 1; i <= TABLE_WIDTH; i++)
-        for (int j = 1; j <= TABLE_WIDTH; j++) {
+    for (int i = 0; i <= 2*TABLE_SIDE; i++)
+        for (int j = 0; j <= 2*TABLE_SIDE; j++) {
             contents[i][j] = EMPTY;
             centers_xy_coord[i][j].x = XORIGIN + 2 * (i + j) * RADIUS * COS60 + RADIUS * COS60;
             centers_xy_coord[i][j].y = YORIGIN - 2 * (i - j) * RADIUS * SIN60 + 3 * RADIUS / 2;
 
         }
-    for (int i = 0; i <= TABLE_WIDTH; i++)
-        contents[0][i] = contents[TABLE_WIDTH + 1][i] = contents[i][0] = contents[i][TABLE_WIDTH + 1] = WALL;
+
 }
 
 int Table::get_content(sf::Vector2<int> coord) {
-    if(coord.y<1 ||coord.y>TABLE_WIDTH || coord.x<1 ||coord.x>TABLE_WIDTH)
+    if(coord.y<1 ||coord.y>2*TABLE_SIDE || coord.x<1 ||coord.x>2*TABLE_SIDE)
+        return WALL;
+    if(coord.x>=TABLE_SIDE && coord.x-coord.y > TABLE_SIDE-1)
+        return WALL;
+    if(coord.y>=TABLE_SIDE && coord.y-coord.x > TABLE_SIDE-1)
         return WALL;
     return contents[coord.x][coord.y];
 }
@@ -35,16 +38,16 @@ sf::Vector2<float> Table::get_xy_coord(sf::Vector2<int> table_coord){
 }
 
 Vector2<int> Table::transform_to_table_coord(Vector2<int> window_coord){
-    double dist_to_centers[TABLE_WIDTH+1][TABLE_WIDTH+1];
-    for(int i=1;i<=TABLE_WIDTH;i++)
-        for(int j=1;j<=TABLE_WIDTH;j++)
+    double dist_to_centers[2*TABLE_SIDE+1][2*TABLE_SIDE+1];
+    for(int i=1;i<=2*TABLE_SIDE;i++)
+        for(int j=1;j<=2*TABLE_SIDE;j++)
             dist_to_centers[i][j] = pow(centers_xy_coord[i][j].x - window_coord.x,2)+pow(centers_xy_coord[i][j].y - window_coord.y,2);
 
     double min_dist=100*RADIUS;
     Vector2<int> click_coord;
 
-    for(int i=1;i<=TABLE_WIDTH;i++)
-        for(int j=1;j<=TABLE_WIDTH;j++)
+    for(int i=1;i<=2*TABLE_SIDE;i++)
+        for(int j=1;j<=2*TABLE_SIDE;j++)
             if(dist_to_centers[i][j] < min_dist){
                 min_dist = dist_to_centers[i][j];
                 click_coord={i,j};
@@ -57,10 +60,12 @@ void Table::draw(sf::RenderWindow *window){
     hex.setFillColor(sf::Color(2,2,45));
     hex.setOutlineColor(sf::Color(100,100,200));
     hex.setOutlineThickness(2);
-    for(int i=1;i<=TABLE_WIDTH;i++){
-        for(int j=1;j<=TABLE_WIDTH;j++){
-            hex.setPosition(get_xy_coord({i,j}));
-            window->draw(hex);
+    for(int i=1;i<=2*TABLE_SIDE;i++){
+        for(int j=1;j<=2*TABLE_SIDE;j++){
+            if(i-j < TABLE_SIDE && j-i < TABLE_SIDE) {
+                hex.setPosition(get_xy_coord({i, j}));
+                window->draw(hex);
+            }
         }
     }
 }
@@ -68,8 +73,8 @@ void Table::draw(sf::RenderWindow *window){
 
 Vector2<int> Table::get_rand_free_cell() {
     //choose a random position
-    Vector2<int> cell = {rand() % TABLE_WIDTH + 1, rand() % TABLE_WIDTH + 1};
-    int visited[TABLE_WIDTH + 1][TABLE_WIDTH + 1] = {0};
+    Vector2<int> cell = {rand() % (2*TABLE_SIDE) + 1, rand() % (2*TABLE_SIDE) + 1};
+    int visited[2*TABLE_SIDE + 1][2*TABLE_SIDE + 1] = {0};
     std::queue<Vector2<int>> to_visit;
     to_visit.push(cell);
     while(! to_visit.empty()){

@@ -6,7 +6,7 @@
 #include <cmath>
 
 #define RADIUS 25
-#define TABLE_WIDTH 8
+#define TABLE_SIDE 8
 #define XORIGIN (-RADIUS)
 #define YORIGIN (HEIGHT/2-RADIUS)
 #define SIN60 0.86602
@@ -18,8 +18,8 @@
 using namespace sf;
 
 class Table{
-    Vector2<int> centers_xy_coord[TABLE_WIDTH+1][TABLE_WIDTH+1];
-    int contents[TABLE_WIDTH+2][TABLE_WIDTH+2]{};
+    Vector2<int> centers_xy_coord[2*TABLE_SIDE+1][2*TABLE_SIDE+1];
+    int contents[2*TABLE_SIDE+2][2*TABLE_SIDE+2];
 public:
     Vector2<int> moves[6]={{1,0},{1,1},{0,1},{-1,0},{0,-1},{-1,-1}};
     Table();

@@ -7,6 +7,7 @@ int main(){
     sf::RenderWindow window(sf::VideoMode(WIDTH, HEIGHT), "My window");
     window.setFramerateLimit(30);
     Game game("level.in");
+    Vector2<int> x = {-1,1};
     // run the program as long as the window is open
     while (window.isOpen())
     {
