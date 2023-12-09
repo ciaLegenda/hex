@@ -25,11 +25,15 @@ void Game::restart() {
 }
 
 void Game::draw(RenderWindow *window){
+
     if(state == game_complete)
         show_win_message(window);
     else
+        //show_win_message(window);
         show_instructions(window);
+
     Table::draw(window);
+
     for(auto itr: b)
         itr.draw(window);
     forward_move.draw(window);
@@ -41,15 +45,15 @@ void Game::show_win_message(sf::RenderWindow *window) {
     msg.setFont(win_font);
     msg.setCharacterSize(HEIGHT/15);
 
-    msg.setPosition(0.6*WIDTH,0.3*HEIGHT);
+    msg.setPosition(0.15*WIDTH,0);
     msg.setString("Lelvel");
     window->draw(msg);
 
-    msg.move(0,HEIGHT/15);
+    msg.move(WIDTH/2,0);
     msg.setString("completed");
     window->draw(msg);
 
-    msg.move(0,HEIGHT/9);
+    msg.setPosition(WIDTH/2.5,735);
     msg.setCharacterSize(HEIGHT/30);
     msg.setString("click to restart");
     window->draw(msg);
@@ -60,12 +64,8 @@ void Game::show_instructions(sf::RenderWindow *window) {
     msg.setFont(instruction_font);
     msg.setCharacterSize(HEIGHT/15);
 
-    msg.setPosition(WIDTH/2,HEIGHT/4);
-    msg.setString("Mission:");
-    window->draw(msg);
-
-    msg.move(50,HEIGHT/15);
-    msg.setString("Free the red block!");
+    msg.setPosition(WIDTH/4.3,725);
+    msg.setString("Mission: Free the red block!");
     window->draw(msg);
 }
 
@@ -129,51 +129,54 @@ void Game::generate_random_level(){
     no_of_blocks = 1;
     //place red block
     int pos = rand_between(1,3);
-    b.push_back(Block(0,{pos ,pos},Color(200,10,10), 3,Horizontal,&table));
+    b.push_back(Block(0,{pos ,pos},Color(250,5,10), 3,Horizontal,&table));
 
 
     //place the other blocks such that they don't intersect the path of the red block
-    for(int i=1;i<=15;i++){
+    for(int i=1;i<=35;i++){
         Vector2<int> cell;
         bool intesects_middle_row=true;
-        int max_block_length, good_dir,length;
+        int distance_to_intersection, good_dir,length;
         int iter=0;
-        while(intesects_middle_row && iter<MAX_ITERATIONS){
+        do{
             //find an empty cell and see in which direction is best to place the new block
-            max_block_length = 0;
-            while (max_block_length < 2 && iter<MAX_ITERATIONS){
+            distance_to_intersection = 0;
+            do {
                 iter++;
                 cell = table.get_rand_free_cell();
-                max_block_length = 0;
+                distance_to_intersection = 0;
                 intesects_middle_row = false;
-                for (int dir = 0; dir < 3; dir++){
+                for (int dir = 0; dir < 3; dir++) {
                     //don't place horizontal blocks near the middle row
-                    if(dir == 1 &&(cell.x-cell.y < 2 || cell.x-cell.y > -3))
+                    if(dir == 1 && cell.x-cell.y < 2 && cell.x-cell.y > -2)
                         continue;
                     Vector2<int> move = table.moves[dir];
                     int k = 1;
                     while (table.get_content(cell + k * move) == EMPTY)
                         k++;
-                    if (max_block_length < k) {
-                        max_block_length = k;
+                    if (distance_to_intersection < k) {
+                        distance_to_intersection = k;
                         good_dir = dir;
                     }
                 }
-            }
-            length = rand_between(2,max_block_length);
+            }while (distance_to_intersection < 2 && iter<MAX_ITERATIONS);
+            if(iter==MAX_ITERATIONS)
+                break;
+            distance_to_intersection = std::min(distance_to_intersection,5);//limiting the blocks length
+            length = rand_between(2,distance_to_intersection);
             for(int k=0;k<length;k++)
                 if((cell + k*table.moves[good_dir]).x == (cell + k*table.moves[good_dir]).y)
                     intesects_middle_row = true;
-        }
-        if(iter>MAX_ITERATIONS)
+        }while(intesects_middle_row && iter<MAX_ITERATIONS);
+        if(iter==MAX_ITERATIONS)
             break;
         no_of_blocks++;
-        b.push_back(Block(i,cell,Color(50+rand()%150,50+rand()%150,50+rand()%150),length,good_dir,&table));
+        b.push_back(Block(i,cell,Color(rand()%150,150+rand()%100,rand()%250),length,good_dir,&table));
     }
 
     //shuflle the blocks around until the red block is blocked
 
-    for(int i=0;i<MAX_ITERATIONS;i++){
+    for(int i=0;i<1000;i++){
         int index = rand_between(1,no_of_blocks);
         int dir = rand_between(0,1)? -1 : 1;
         int steps = rand_between(1,5);

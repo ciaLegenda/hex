@@ -6,7 +6,7 @@
 #include "Selector.h"
 #include <fstream>
 
-#define MAX_ITERATIONS 200
+#define MAX_ITERATIONS 10
 
 namespace sf{
     enum game_state{no_block_slected,block_selected,game_complete};

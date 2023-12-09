@@ -1,0 +1,7 @@
+# ninja log v5
+11	1874	7238261586358765	CMakeFiles/hex.dir/main.cpp.obj	245efb7363033409
+19	1895	7238261586510058	CMakeFiles/hex.dir/Selector.cpp.obj	807b016a1a38db18
+29	1896	7238261586551906	CMakeFiles/hex.dir/Block.cpp.obj	3a641e1a67e82df6
+1	2414	7238261591760107	CMakeFiles/hex.dir/Table.cpp.obj	c8132587a0750a71
+38	2534	7238261592938212	CMakeFiles/hex.dir/Game.cpp.obj	ddc0827b53aac76a
+2534	3053	7238261598062646	hex.exe	92e73f06eca000e5
