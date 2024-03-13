@@ -15,14 +15,15 @@ HexaUnblock is a hexagonal twist on the classic sliding block puzzle game. Navig
 
 ## To do
 
-**Hints** Implement a solving algorithm in orer to provide hints for the player
+**Hints**: Implement a solving algorithm in orer to provide hints for the player
 
 ## Implementation overview
 
-**Technologies used** C++ and C. Graphics were implemented using the sfml library
+**Technologies used**: C++ and C. Graphics were implemented using the sfml library
 
 **Representation of the table**
 The table is stored as a 2d array and the coordinate of each cell can be determined according to the following image:
+
 ![image](https://github.com/ciaLegenda/hex/assets/82731283/28d2230b-dc26-4960-bedc-1ce4da7cda8f)
 
 
