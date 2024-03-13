@@ -2,7 +2,8 @@
 
 HexaUnblock is a hexagonal twist on the classic sliding block puzzle game. Navigate hexagons to clear a path for the red hexagon to escape.
 
-![image](https://github.com/ciaLegenda/hex/assets/82731283/2e03d69c-35dc-48cf-9f48-0925f9ed1251)
+![image](https://github.com/ciaLegenda/hex/assets/82731283/8e9f07ed-9630-4039-abe9-a34355df873d)
+
 
 ## Features
 
