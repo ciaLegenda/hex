@@ -5,8 +5,8 @@ HexaUnblock is a hexagonal twist on the classic sliding block puzzle game. Navig
 ![image](https://github.com/ciaLegenda/hex/assets/82731283/2e03d69c-35dc-48cf-9f48-0925f9ed1251)
 
 <p align="center">
-  <img src="[your_relative_path_here](https://github.com/ciaLegenda/hex/assets/82731283/2e03d69c-35dc-48cf-9f48-0925f9ed1251)" width="350" title="hover text">
-  <img src="[your_relative_path_here_number_2_large_name](https://github.com/ciaLegenda/hex/assets/82731283/2e03d69c-35dc-48cf-9f48-0925f9ed1251)" width="350" alt="accessibility text">
+  <img src="(https://github.com/ciaLegenda/hex/assets/82731283/2e03d69c-35dc-48cf-9f48-0925f9ed1251)" width="350" title="hover text">
+  <img src="(https://github.com/ciaLegenda/hex/assets/82731283/2e03d69c-35dc-48cf-9f48-0925f9ed1251)" width="350" alt="accessibility text">
 </p>
 ## Features
 
